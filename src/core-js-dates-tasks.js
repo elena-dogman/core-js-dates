@@ -159,18 +159,8 @@ function isDateInPeriod(date, period) {
  * '1999-01-05T02:20:00.000Z' => '1/5/1999, 2:20:00 AM'
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
-function formatDate(date) {
-  const formattedDate = new Date(date);
-
-  const month = formattedDate.getMonth() + 1;
-  const day = formattedDate.getDate();
-  const year = formattedDate.getFullYear();
-  const hours = String(formattedDate.getHours()).padStart(2, '0');
-  const minutes = String(formattedDate.getMinutes()).padStart(2, '0');
-  const seconds = String(formattedDate.getSeconds()).padStart(2, '0');
-  const meridiem = formattedDate.getHours() < 12 ? 'AM' : 'PM';
-
-  return `${month}/${day}/${year}, ${hours}:${minutes}:${seconds} ${meridiem}`;
+function formatDate(/* date */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -300,8 +290,20 @@ function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
  * Date(2022, 2, 1) => false
  * Date(2020, 2, 1) => true
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+
+  if (year % 4 !== 0) {
+    return false;
+  }
+  if (year % 100 !== 0) {
+    return true;
+  }
+  if (year % 400 !== 0) {
+    return false;
+  }
+
+  return true;
 }
 
 module.exports = {
